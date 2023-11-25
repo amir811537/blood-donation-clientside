@@ -54,7 +54,7 @@ const Register = () => {
       <div className="mx-auto">
         <div className="flex justify-center px-6 py-12">
           {/* <!-- Col --> */}
-          <div className="w-full lg:w-7/12 bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
+          <div className="w-full lg:w-7/12 bg-white dark:bg-gray-700 p-5 rounded-lg ">
             <h3 className="py-4 text-2xl text-center text-gray-800 dark:text-white">
               Create an Account!
             </h3>
@@ -92,7 +92,6 @@ const Register = () => {
                   type="email"
                   placeholder="Enter Your Email Address.."
                 />
-                
               </div>
               <div className="mb-4 md:flex md:justify-between">
                 <div className="mb-4 md:flex md:justify-between">
@@ -198,7 +197,9 @@ const Register = () => {
                     aria-invalid={errors.password ? "true" : "false"}
                   />
                   {errors.password?.type === "required" && (
-                    <p  className="text-red-600" role="alert">Password is required</p>
+                    <p className="text-red-600" role="alert">
+                      Password is required
+                    </p>
                   )}
                 </div>
 
@@ -220,9 +221,24 @@ const Register = () => {
                     aria-invalid={errors.confirmPassword ? "true" : "false"}
                   />
                   {errors.confirmPassword && (
-                    <p className="text-red-600" role="alert">{errors.confirmPassword.message}</p>
+                    <p className="text-red-600" role="alert">
+                      {errors.confirmPassword.message}
+                    </p>
                   )}
                 </div>
+              </div>
+              <div className="form-control w-full py-3 mb-2 max-w-xs">
+                <label
+                  className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
+                  htmlFor="c_password"
+                >
+                  Profile Picture:(150 x 150 pixels)
+                </label>
+                <input
+                  {...register("image", { required: true })}
+                  type="file"
+                  className="file-input w-full "
+                />
               </div>
               <div className="mb-6 text-center">
                 <button
