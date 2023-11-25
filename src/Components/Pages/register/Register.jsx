@@ -239,6 +239,12 @@ const Register = () => {
                   type="file"
                   className="file-input w-full "
                 />
+                 {errors.image?.type === "required" && (
+                    <p className="text-red-600" role="alert">
+                      image  is required
+                    </p>
+                  )}
+                
               </div>
               <div className="mb-6 text-center">
                 <button
