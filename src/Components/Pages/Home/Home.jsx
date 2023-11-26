@@ -1,8 +1,14 @@
+import Banner from "../Banner/Banner";
+import ContactUs from "../ContactUs/ContactUs";
 
 const Home = () => {
     return (
         <div >
-            <h3 className="text-6xl font-bold">this is home </h3>
+
+
+            <Banner></Banner>
+
+            <ContactUs></ContactUs>
         </div>
     );
 };

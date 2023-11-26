@@ -1,16 +1,27 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
+const image_hostion_api = "https://api.imgbb.com/1/upload?key=1d6fdf8c502424c419510b9f0a67a7f8";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const axiosPublics=useAxiosPublic();
+
+
   const [districtDDL, setDistrictDDL] = useState([]);
   const [upZillaDDL, setUpzillaDDL] = useState([]);
   const {
     register,
     handleSubmit,
+    reset,
     watch,
-    getValues,
     formState: { errors },
   } = useForm();
 
@@ -30,9 +41,52 @@ const Register = () => {
     getDistictsDDL();
   }, []);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const result = await createUser(data.email, data.password);
+      const loggedUser = result.user;
+      console.log(loggedUser);
+  
+      const imageFile = { image: data.image[0] };
+      const res = await axiosPublics.post(image_hostion_api, imageFile, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+  
+      if (res.data.success) {
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          image: res.data.data.display_url,
+          District: data.district,
+          Upazila: data.upzilla,
+          Blood_Group: data.bloodgroup,
+          Password: data.password
+        };
+  
+        const userRes = await axiosPublics.post('/users', userInfo);
+        console.log(userInfo); // Log userInfo, not userInfo.data
+  
+        if (userRes.data.insertedId) {
+          reset();
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: `${data.name} Your account create successful.`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate('/')
+        }
+      }
+  
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
   const handleDistrict = async (districtName) => {
     const district = districtDDL.filter((item) => item.name === districtName);
 
@@ -145,7 +199,7 @@ const Register = () => {
                       {upZillaDDL?.length > 0 &&
                         upZillaDDL?.map((upzilla) => {
                           return (
-                            <option key={upzilla?.id} value={upzilla?.id}>
+                            <option key={upzilla?.id} value={upzilla?.name}>
                               {upzilla?.name}
                             </option>
                           );
@@ -239,12 +293,12 @@ const Register = () => {
                   type="file"
                   className="file-input w-full "
                 />
-                 {errors.image?.type === "required" && (
-                    <p className="text-red-600" role="alert">
-                      image  is required
-                    </p>
-                  )}
-                
+                {errors.image?.type === "required" && (
+                  <p className="text-red-600" role="alert">
+                    image  is required
+                  </p>
+                )}
+
               </div>
               <div className="mb-6 text-center">
                 <button
@@ -256,15 +310,7 @@ const Register = () => {
               </div>
               <hr className="mb-6 border-t" />
               <div className="text-center">
-                <a
-                  className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                  href="#"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-              <div className="text-center">
-                <Link
+                <Link to="/login"
                   className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                   href="./index.html"
                 >

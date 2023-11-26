@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import navlogo from '../../assets/image-250x150.png'
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
+  const {user,logOut}=useContext(AuthContext);
 
+  const handelLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
     const navoptions = (
         <>
           <li>
@@ -14,9 +24,23 @@ const Navbar = () => {
           <li>
             <Link to="/blog">Blogs</Link>
           </li>
+          {user ? (
+        <>
+          {/* <span>{user?.displayName}</span> */}
+          <li>
+            {" "}
+            <button onClick={handelLogout} className="btn btn-ghost">
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
           <li>
             <Link to="/login">Login</Link>
           </li>
+        </>
+      )}
           <li>
             <Link to="/register">Register</Link>
           </li>
