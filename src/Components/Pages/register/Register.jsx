@@ -62,7 +62,9 @@ const Register = () => {
           District: data.district,
           Upazila: data.upzilla,
           Blood_Group: data.bloodgroup,
-          Password: data.password
+          Password: data.password,
+          role:"donor"
+
         };
   
         const userRes = await axiosPublics.post('/users', userInfo);

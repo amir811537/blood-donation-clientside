@@ -24,6 +24,9 @@ const Navbar = () => {
           <li>
             <Link to="/blog">Blogs</Link>
           </li>
+          <li>
+            <Link to="/dashboard">My Dashboard</Link>
+          </li>
           {user ? (
         <>
           {/* <span>{user?.displayName}</span> */}
