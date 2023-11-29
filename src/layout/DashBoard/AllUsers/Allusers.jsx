@@ -67,12 +67,12 @@ console.log(allData)
   
 
   const handleBlock = (item) => {
-    // Handle block logic
+    
     console.log("Block user:", item);
   };
 
   const handleUnblock = (item) => {
-    // Handle unblock logic
+    
     console.log("Unblock user:", item);
   };
 
@@ -182,7 +182,7 @@ console.log(allData)
                 )} */}
                 {item.role==='admin'? "Admin" :<button onClick={() =>handleMakeAdmin(item)} className="btn btn-ghost btn-sm">Make Admin</button>}
                 <br />
-                <button onClick={() => handleMakeVolunteer(item.role)} className="btn btn-ghost btn-sm">Make Volunteer</button>
+                <button onClick={() => handleMakeVolunteer(item)} className="btn btn-ghost btn-sm">Make Volunteer</button>
 
                 <button onClick={() => handleDeleteReq(item)} className="btn btn-ghost btn-lg"><RiDeleteBin5Line className="text-2xl text-red-500"/></button>
               </td>
