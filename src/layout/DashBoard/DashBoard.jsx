@@ -4,11 +4,15 @@ import { MdDashboard } from "react-icons/md";
 import { FaCodePullRequest } from "react-icons/fa6";
 import './dashboard.css'
 import navlogo from '../../assets/image-250x150.png'
+import { HiUsers } from "react-icons/hi2";
+import { MdOutlineContentPasteGo } from "react-icons/md";
 const DashBoard = () => {
 
 
   const location = useLocation();
-  
+  // get is admin 
+  const isAdmin = true;
+
 
   return (
     <div className="flex">
@@ -37,8 +41,17 @@ const DashBoard = () => {
               <div className="w-max p-2.5">
                 <img src={navlogo} className="w-32" alt="" />
               </div>
+
+
               <ul className="mt-6 space-y-2 tracking-wide">
-                <li className="min-w-max">
+
+
+                
+             {
+              isAdmin? <>
+              
+              
+              <li className="min-w-max">
                   <NavLink
                     to='/dashboard'
                     aria-label="dashboard"
@@ -46,7 +59,66 @@ const DashBoard = () => {
           transition duration-300 ease-in-out 
          ${location.pathname === '/dashboard' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
                   >
-                    <MdDashboard className="text-3xl"   />
+                    <MdDashboard className="text-3xl" />
+                    <span className="-mr-1 font-medium" >Admin Dashboard</span>
+                  </NavLink>
+                </li>
+
+                <li className="min-w-max">
+                  <NavLink
+                    to='/dashboard/all-users'
+                    aria-label="dashboard"
+                    className={`relative flex items-center space-x-4 px-4 py-3
+          transition duration-300 ease-in-out 
+         ${location.pathname === '/dashboard/all-users'? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+                  >
+                    <HiUsers className="text-3xl" />
+                    <span className="-mr-1 font-medium">All Users</span>
+                  </NavLink>
+                </li>
+                <li className="min-w-max">
+                  <NavLink
+                    to='/dashboard/all-blood-donation-request'
+                    aria-label="dashboard"
+                    className={`relative flex items-center space-x-4 px-4 py-3
+          transition duration-300 ease-in-out 
+         ${location.pathname === '/dashboard/all-blood-donation-request' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+                  >
+                    <FaCodePullRequest className="text-3xl" />
+                    <span className="-mr-1 font-medium">All Blood Donation Request</span>
+                  </NavLink>
+                </li>
+                <li className="min-w-max">
+                  <NavLink
+                    to='/dashboard/content-management'
+                    aria-label="dashboard"
+                    className={`relative flex items-center space-x-4 px-4 py-3
+          transition duration-300 ease-in-out 
+         ${location.pathname === '/dashboard/content-management' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+                  >
+                    <MdOutlineContentPasteGo className="text-3xl" />
+                    <span className="-mr-1 font-medium">Content Management</span>
+                  </NavLink>
+                </li>
+              
+              
+              
+              </>:
+              
+              
+              
+              
+              <>
+              
+              <li className="min-w-max">
+                  <NavLink
+                    to='/dashboard'
+                    aria-label="dashboard"
+                    className={`relative flex items-center space-x-4 px-4 py-3
+          transition duration-300 ease-in-out 
+         ${location.pathname === '/dashboard' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+                  >
+                    <MdDashboard className="text-3xl" />
                     <span className="-mr-1 font-medium">Dashboard</span>
                   </NavLink>
                 </li>
@@ -64,52 +136,30 @@ const DashBoard = () => {
                 </li>
                 <li className="min-w-max">
                   <NavLink
-                    to='/dashboard/my-donation-requests'
+                    to='/dashboard/Create-donation-requests'
                     aria-label="dashboard"
                     className={`relative flex items-center space-x-4 px-4 py-3
           transition duration-300 ease-in-out 
-         ${location.pathname === '/dashboard/my-donation-requests' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+         ${location.pathname === '/dashboard/Create-donation-requests' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
                   >
                     <FaCodePullRequest className="text-3xl" />
-                    <span className="-mr-1 font-medium">My Donation requests</span>
+                    <span className="-mr-1 font-medium">Create Donation requests</span>
                   </NavLink>
                 </li>
-                {/* <li className="min-w-max">
-                  <NavLink
-                    to='/dashboard'
-                    aria-label="dashboard"
-                    className={`relative flex items-center space-x-4 px-4 py-3
-          transition duration-300 ease-in-out 
-         ${location.pathname === '/dashboard' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
-                  >
-                    <MdDashboard />
-                    <span className="-mr-1 font-medium">Dashboard</span>
-                  </NavLink>
-                </li> */}
-               
               
-             
-        
+              
+              </>
+             }
+
+
+
+
+
               </ul>
             </div>
-            {/* <div className="w-max -mb-3">
-        <Link to="" className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
-          
-          <span className="group-hover:text-gray-700">Settings</span>
-        </Link>
-      </div> */}
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
       {/* dashboard-content */}
       <div className="flex-1">
         <Outlet></Outlet>

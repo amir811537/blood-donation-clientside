@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import TimePicker from 'react-time-picker';
 import Swal from "sweetalert2";
@@ -11,7 +11,9 @@ import moment from 'moment'
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-const Mydonationreq = () => {
+import { AuthContext } from "../../../Provider/AuthProvider";
+const Createdonationreq = () => {
+  const {user}=useContext(AuthContext)
 
     const axiosPublics = useAxiosPublic();
     
@@ -94,7 +96,7 @@ const Mydonationreq = () => {
               showConfirmButton: false,
               timer: 1500
             });
-            navigate('/dashboard/my-donation-requests');
+            navigate('/dashboard/Create-donation-requests');
           }
         } catch (error) {
           console.log(error);
@@ -145,25 +147,28 @@ const Mydonationreq = () => {
                                     name="name"
                                     type="text"
                                     required
-                                    placeholder="Enter requester name..."
+                                    placeholder="Enter Login user name"
+                                    defaultValue={user?.displayName ? user.displayName : null}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label
-                                    className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
-                                    htmlFor="email"
-                                >
-                                    Requester email:
-                                </label>
-                                <input
-                                    {...register("email")}
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    placeholder="Enter your email address..."
-                                />
-                            </div>
+    <label
+        className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
+        htmlFor="email"
+    >
+        Requester email:
+    </label>
+    <input
+    {...register("email")}
+    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+    name="email"
+    type="email"
+    readOnly
+    value={user?.email || ''}
+/>
+
+</div>
+
 
                             <div className="mb-4">
                                 <label
@@ -277,42 +282,17 @@ Medical College Hospital)  */}
                                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
                                     htmlFor="recipientfulladress"
                                 >
-                                    Recipient hospital adress:
+                                  recipient full adress:
                                 </label>
-                                <textarea
+                                <input
                                     {...register("recipientfulladress")}
-                                    className="w-full textarea textarea-bordered h-24 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     name="recipientfulladress"
                                     type="text"
                                     required
-                                    placeholder="Enter recipient full adress .......(like: Zahir Raihan Rd, Dhaka)"
+                                    placeholder="Enter recipient full adress."
                                 />
                             </div>
-
-
-
-
-
-
-
-                            {/* <div className="mb-4">
-                                <label
-                                    className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
-                                    htmlFor="hospitalname"
-                                >
-                                    Recipient full Adress:
-                                </label>
-                                <textarea
-                                    {...register("recipientfulladress")}
-                                    className="w-full textarea textarea-bordered h-24 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    name="recipientfulladress"
-                                    type="text"
-                                    required
-                                    placeholder="Enter recipient full adress .......(like: Zahir Raihan Rd, Dhaka)"
-                                />
-                            </div> */}
-
-
 
                             <div className="mb-4">
                                 <label
@@ -341,160 +321,6 @@ Medical College Hospital)  */}
 
 
 
-
-
-
-
-                            {/* <div className="mb-4">
-  <label
-    className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
-    htmlFor="name"
-  >
-    Donation time:
-  </label>
-  <input
-    {...register("donationtime", {
-      pattern: /^([1]?[0-9]|2[0-3]):[0-5][0-9]$/
-    })}
-    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-    name="donationtime"
-    type="time"
-  />
-</div> */}
-
-
-
-
-
-
-
-                            {/* 
-<div className="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
-  <div className="flex">
-    <select name="hours" className="bg-transparent text-xl appearance-none outline-none">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">10</option>
-      <option value="12">12</option>
-    </select>
-    <span className="text-xl mr-3">:</span>
-    <select name="minutes" className="bg-transparent text-xl appearance-none outline-none mr-4">
-      <option value="0">00</option>
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="45">45</option>
-    </select>
-    <select name="ampm" className="bg-transparent text-xl appearance-none outline-none">
-      <option value="am">AM</option>
-      <option value="pm">PM</option>
-    </select>
-  </div>
-</div> */}
-
-
-
-
-
-
-
-
-                            {/* <div className="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
-        <div className="flex">
-          <Controller
-            name="hours"
-            control={control}
-            rules={{ required: 'Please select hours' }}
-            render={({ field }) => (
-              <select
-                {...field}
-                className="bg-transparent text-xl appearance-none outline-none"
-              >
-                <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">10</option>
-      <option value="12">12</option>
-              </select>
-            )}
-          />
-          <span className="text-xl mr-3">:</span>
-          <Controller
-            name="minutes"
-            control={control}
-            rules={{ required: 'Please select minutes' }}
-            render={({ field }) => (
-              <select
-                {...field}
-                className="bg-transparent text-xl appearance-none outline-none mr-4"
-              >
-               <option value="0">00</option>
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="45">45</option>
-              </select>
-            )}
-          />
-          <Controller
-            name="ampm"
-            control={control}
-            rules={{ required: 'Please select AM/PM' }}
-            render={({ field }) => (
-              <select
-                {...field}
-                className="bg-transparent text-xl appearance-none outline-none"
-              >
-                <option value="am">AM</option>
-      <option value="pm">PM</option>
-              </select>
-            )}
-          />
-        </div>
-      </div> */}
-
-                            {/* Display validation errors */}
-                          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             <div className="mb-4">
                                 <label
                                     className="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
@@ -503,7 +329,7 @@ Medical College Hospital)  */}
                                     Why he/she need blood:
                                 </label>
                                 <textarea
-                                    {...register("recipientfulladress")}
+                                    {...register("requstermessage")}
                                     className="w-full textarea textarea-bordered h-24 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     name="requstermessage"
                                     type="text"
@@ -561,4 +387,4 @@ Medical College Hospital)  */}
     );
 };
 
-export default Mydonationreq;
+export default Createdonationreq;

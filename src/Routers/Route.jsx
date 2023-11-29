@@ -9,7 +9,10 @@ import DashBoard from "../layout/DashBoard/DashBoard";
 import Profile from "../Components/Pages/DashBoard/Profile";
 import DashBoardHome from "../layout/DashBoard/DashBordHome/DashBoardHome";
 import UpdateProfile from "../Components/Pages/DashBoard/UpdateProfile/UpdateProfile";
-import Mydonationreq from "../layout/DashBoard/MyDonationRequest/Mydonationreq";
+import PrivateRoute from "./PrivateRoute";
+import Createdonationreq from "../layout/DashBoard/MyDonationRequest/Createdonationreq";
+import UpdateDonorReq from "../layout/DashBoard/DashBordHome/UpdateDonorReq";
+import Allusers from "../layout/DashBoard/AllUsers/Allusers";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,7 +51,7 @@ const router = createBrowserRouter([
   children:[
 {
   path:'/dashboard',
-  element:<DashBoardHome></DashBoardHome>
+  element:<PrivateRoute><DashBoardHome></DashBoardHome></PrivateRoute>
 },
 
     {
@@ -61,8 +64,19 @@ const router = createBrowserRouter([
       loader:({params})=>fetch(`http://localhost:5000/users/${params.id}`)
     },
     {
-      path:'/dashboard/my-donation-requests',
-      element:<Mydonationreq></Mydonationreq>
+      path:'/dashboard/Create-donation-requests',
+      element:<Createdonationreq></Createdonationreq>
+    },
+    {
+      path:'/dashboard/update-donation-requests/:id',
+      element:<UpdateDonorReq></UpdateDonorReq>,
+      loader:({params})=>fetch(`http://localhost:5000/donation/${params.id}`)
+      
+    },
+    // admin route
+    {
+      path:'/dashboard/all-users',
+      element:<Allusers></Allusers>
     }
   ]
 }

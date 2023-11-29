@@ -7,7 +7,7 @@ const Profile = () => {
     const [finalUser, setFinalUser] = useState([]);
     const [loading, setLoading] = useState(true);
 const navigate =useNavigate()
-    console.log("=============================>", finalUser);
+    // console.log("=============================>", finalUser);
 
     useEffect(() => {
         if (user && user.email) {
