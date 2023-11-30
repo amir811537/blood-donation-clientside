@@ -1,26 +1,41 @@
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from 'react-icons/ri';
-import { PiUsersThreeFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Allusers = () => {
     const axiosPublic=useAxiosPublic();
+    const axiosSecure=useAxiosSecure()
   const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/users')
-      .then(res => res.json())
-      .then(data => {
-        setAllData(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-      });
-  }, []);
-console.log(allData)
+//   useEffect(() => {
+//     fetch('http://localhost:5000/users')
+//       .then(res => res.json())
+//       .then(data => {
+//         setAllData(data);
+//         setLoading(false);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching user data:', error);
+//       });
+//   }, []);
+// console.log(allData)
+
+useEffect(() => {
+  axiosSecure.get('http://localhost:5000/users')
+    .then(response => {
+      setAllData(response.data);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Error fetching user data:', error);
+    });
+}, [axiosSecure]);
+
+console.log(allData);
+
   const handleUpdate = (item) => {
     // Handle update logic
     console.log("Update user:", item);
@@ -67,12 +82,12 @@ console.log(allData)
   
 
   const handleBlock = (item) => {
-    
+    // Handle block logic
     console.log("Block user:", item);
   };
 
   const handleUnblock = (item) => {
-    
+    // Handle unblock logic
     console.log("Unblock user:", item);
   };
 
@@ -182,7 +197,7 @@ console.log(allData)
                 )} */}
                 {item.role==='admin'? "Admin" :<button onClick={() =>handleMakeAdmin(item)} className="btn btn-ghost btn-sm">Make Admin</button>}
                 <br />
-                <button onClick={() => handleMakeVolunteer(item)} className="btn btn-ghost btn-sm">Make Volunteer</button>
+                {item.role==='volunteer'?"volunteer":<button onClick={() => handleMakeVolunteer(item)} className="btn btn-ghost btn-sm">Make Volunteer</button>}
 
                 <button onClick={() => handleDeleteReq(item)} className="btn btn-ghost btn-lg"><RiDeleteBin5Line className="text-2xl text-red-500"/></button>
               </td>

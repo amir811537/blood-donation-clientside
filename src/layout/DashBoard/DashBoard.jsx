@@ -6,12 +6,13 @@ import './dashboard.css'
 import navlogo from '../../assets/image-250x150.png'
 import { HiUsers } from "react-icons/hi2";
 import { MdOutlineContentPasteGo } from "react-icons/md";
+import useAdmin from "../../Hooks/useAdmin";
 const DashBoard = () => {
 
 
   const location = useLocation();
   // get is admin 
-  const isAdmin = true;
+  const [isAdmin] = useAdmin;
 
 
   return (

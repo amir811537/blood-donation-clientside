@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const auth = getAuth(app);
 
@@ -19,6 +20,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic=useAxiosPublic()
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -44,7 +46,21 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("user in the auth state changed", currentUser);
+      // console.log("user in the auth state changed", currentUser);
+if(currentUser){
+  // get token and store
+const userinfo={email:currentUser.email};
+axiosPublic.post('/jwt',userinfo)
+.then(res=>{
+  if(res.data.token){
+    localStorage.setItem('access-token',res.data.token);
+  }
+})
+
+}else{
+  // todo remove token
+localStorage.removeItem('access-token');
+}
       setUser(currentUser);
       setLoading(false);
     });
