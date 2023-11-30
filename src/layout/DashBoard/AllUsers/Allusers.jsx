@@ -63,10 +63,9 @@ console.log(allData);
               });
   
               // Refetch data after deletion
-              fetch('http://localhost:5000/users')
-                .then(res => res.json())
+              axiosSecure('http://localhost:5000/users')
                 .then(data => {
-                  setAllData(data);
+                  setAllData(data.data);
                 })
                 .catch(error => {
                   console.error('Error fetching user data:', error);

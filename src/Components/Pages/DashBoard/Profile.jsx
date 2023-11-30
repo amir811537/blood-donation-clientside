@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import {useNavigate} from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Profile = () => {
+    const axisoSecure=useAxiosSecure()
     const { user } = useContext(AuthContext);
     const [finalUser, setFinalUser] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,10 +13,9 @@ const navigate =useNavigate()
 
     useEffect(() => {
         if (user && user.email) {
-            fetch('http://localhost:5000/users')
-                .then((res) => res.json())
+           axisoSecure('http://localhost:5000/users')
                 .then((data) => {
-                    const filteredUser = data.filter((userData) => userData.email.toLowerCase() === user.email.toLowerCase());
+                    const filteredUser = data.data.filter((userData) => userData.email.toLowerCase() === user.email.toLowerCase());
                     setFinalUser(filteredUser);
                     setLoading(false);
                 });

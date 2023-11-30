@@ -12,8 +12,12 @@ const DashBoard = () => {
 
   const location = useLocation();
   // get is admin 
-  const [isAdmin] = useAdmin;
-
+  const [isAdmin,isAdminLoading] = useAdmin();
+  console.log(isAdmin)
+  
+if(isAdminLoading){
+  return <p> loading..........</p>
+}
 
   return (
     <div className="flex">
