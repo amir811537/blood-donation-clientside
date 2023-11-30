@@ -58,11 +58,11 @@ if(isAdminLoading){
               
               <li className="min-w-max">
                   <NavLink
-                    to='/dashboard'
+                    to='/dashboard/admin'
                     aria-label="dashboard"
                     className={`relative flex items-center space-x-4 px-4 py-3
           transition duration-300 ease-in-out 
-         ${location.pathname === '/dashboard' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
+         ${location.pathname === '/dashboard/admin' ? 'bg-gradient-to-r from-sky-600 to-cyan-400' : ''}`}
                   >
                     <MdDashboard className="text-3xl" />
                     <span className="-mr-1 font-medium" >Admin Dashboard</span>

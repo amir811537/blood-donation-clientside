@@ -100,7 +100,7 @@ navigate(`/dashboard/update-donation-requests/${_id}`)
       <div className="max-w-6xl px-6 py-8 mx-auto">
         <div className="w-full md:w-1/2 py-8">
           <h1 className="text-purple-900 md:text-3xl text-xl lg:text-5xl font-semibold leading-none tracking-tighter">
-            Hey Donor,
+            Hey {displayedDonorReq.length > 0 ? displayedDonorReq[0].role : ''},
             <br />
             <span className="text-blue-500"> {displayedDonorReq.length > 0 ? displayedDonorReq[0].username : ''}, <br /></span> Welcome to Dashboard
           </h1>

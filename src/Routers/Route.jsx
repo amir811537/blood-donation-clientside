@@ -13,6 +13,9 @@ import PrivateRoute from "./PrivateRoute";
 import Createdonationreq from "../layout/DashBoard/MyDonationRequest/Createdonationreq";
 import UpdateDonorReq from "../layout/DashBoard/DashBordHome/UpdateDonorReq";
 import Allusers from "../layout/DashBoard/AllUsers/Allusers";
+import Adminhome from "../layout/DashBoard/AdminHome/Adminhome";
+import ShowAlldonationreq from "../layout/DashBoard/AdminshowAllreq/ShowAlldonationreq";
+import Contenmanagement from "../layout/DashBoard/contentmanageAdmin/Contenmanagement";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +80,18 @@ const router = createBrowserRouter([
     {
       path:'/dashboard/all-users',
       element:<Allusers></Allusers>
+    }
+    ,{
+      path:'/dashboard/admin',
+      element:<Adminhome></Adminhome>
+    }
+    ,{
+      path:'/dashboard/all-blood-donation-request',
+      element:<ShowAlldonationreq></ShowAlldonationreq>
+    },
+    {
+      path:'/dashboard/content-management',
+      element:<Contenmanagement></Contenmanagement>,
     }
   ]
 }

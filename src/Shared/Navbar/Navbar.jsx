@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import navlogo from '../../assets/image-250x150.png'
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Navbar = () => {
   const {user,logOut}=useContext(AuthContext);
-
+  const [isAdmin,isAdminLoading] = useAdmin();
   const handelLogout = () => {
     logOut()
       .then(() => {})
@@ -24,9 +25,15 @@ const Navbar = () => {
           <li>
             <Link to="/blog">Blogs</Link>
           </li>
-          <li>
+          {
+isAdmin?<><li>
+<Link to="/dashboard/admin">My Dashboard</Link>
+</li></>:
+<li>
             <Link to="/dashboard">My Dashboard</Link>
           </li>
+
+          }
           {user ? (
         <>
           {/* <span>{user?.displayName}</span> */}
